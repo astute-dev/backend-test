@@ -1,6 +1,17 @@
-var readPipe = require('./read_pipe');
+var request = require('request');
 
-readPipe(validate);
+var ENDPOINT = 'https://astutedev.herokuapp.com';
+
+request
+  .get(ENDPOINT + '/event')
+  .on('data', function(data) {
+    validate(JSON.parse(data));
+  })
+  .on('error', function(err) {
+    console.error(err);
+    throw 'NETWORK ERROR';
+  });
+
 
 var KEYS = [
   'userid',
@@ -15,6 +26,7 @@ var KEYS = [
 ];
 
 function validate(data) {
+  console.log(data);
   if (!data.length) {
     console.log('NO DATA FOUND');
     return;

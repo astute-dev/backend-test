@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
-ENDPOINT='https://astutedev.herokuapp.com'
+set -e -o pipefail
 
 # event
-CURL $ENDPOINT'/event' | node event.js
+echo '/event'
+node event.js
+
+# courses
+echo '/courses'
+node courses.js
